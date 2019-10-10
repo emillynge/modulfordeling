@@ -7,9 +7,7 @@ verify_ssl = true
 python_version = "3.7"
 
 [packages]
-numberjack = "*"
 pyscipopt = "*"
-pandas = "*"
 
 [dev-packages]
 black = "==19.3b0"
