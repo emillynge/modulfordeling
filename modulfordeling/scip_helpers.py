@@ -28,9 +28,9 @@ class SparseMatrix(object):
 
     def make_var(self, x: StrOrInt, y: StrOrInt):
         if x not in self.x_keys:
-            raise ValueError(f"x={x} is not a valid key")
+            raise KeyError(f"x={x} is not a valid key")
         if y not in self.y_keys:
-            raise ValueError(f"y={y} is not a valid key")
+            raise KeyError(f"y={y} is not a valid key")
 
         new_var: Variable = self.model.addVar(name=f"{self.prefix}_{x}_{y}", vtype="B")
         self.X[x][y] = new_var
@@ -41,26 +41,26 @@ class SparseMatrix(object):
         for row_dict in self.X.values():
             yield row_dict.values()
 
-    def x_items(self):
-        for row_dict in self.X.values():
-            yield row_dict
+    # def x_items(self):
+    #     for row_dict in self.X.values():
+    #         yield row_dict
 
-    def row_items(self, x_key):
-        return self.X[x_key].items()
+    # def row_items(self, x_key):
+    #     return self.X[x_key].items()
 
-    def col_items(self, y_key):
-        return self.X_T[y_key].items()
+    # def col_items(self, y_key):
+    #     return self.X_T[y_key].items()
 
     def row(self, x_key):
         return self.X[x_key].values()
 
     def col(self, y_key):
-        return self.X_T[y_key].values()
+        return self.T[y_key].values()
 
-    @property
-    def y(self):
-        for row_dict in self.X_T.values():
-            yield row_dict.values()
+    # @property
+    # def y(self):
+    #     for row_dict in self.X_T.values():
+    #         yield row_dict.values()
 
     @property
     def T(self):

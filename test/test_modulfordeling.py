@@ -1,3 +1,5 @@
+import pytest
+
 from modulfordeling import modulfordeling
 
 MODULER_PATH = "test/moduler.yaml"
@@ -20,3 +22,10 @@ def test_problem() -> None:
         modulfordeling.read_priorities(PRIO_PATH),
         modulfordeling.read_moduler(MODULER_PATH),
     )
+
+
+def test_inconsistent() -> None:
+    prio = modulfordeling.read_priorities(PRIO_PATH)
+    prio["mikkel"]["module_not_here"] = 10
+    with pytest.raises(ValueError):
+        modulfordeling.init_problem(prio, modulfordeling.read_moduler(MODULER_PATH))

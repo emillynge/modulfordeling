@@ -1,5 +1,4 @@
 import csv
-import sys
 from itertools import chain
 from typing import Dict, List, NamedTuple
 
@@ -140,16 +139,13 @@ def init_problem(priorities: Prio, moduler: Mod):
     const = []
     for attendee, prio in priorities.items():
         for prio_name, prio_val in prio.items():
-            for period in moduler[prio_name].periods:
-                """ Decision variable: X_i_j: person i assigned to module j in period k """
-                try:
+            try:
+                for period in moduler[prio_name].periods:
+                    """ Decision variable: X_i_j: person i assigned to module j in period k """
                     p.X.make_var(attendee, f"{prio_name}_{period}")
                     obj.append(p.X.X[attendee][f"{prio_name}_{period}"] * prio_val)
-                except ValueError as e:
-                    sys.stderr.write(
-                        f"priorities and modules are not consistent: {e.args[0]}\n"
-                    )
-                    raise
+            except KeyError as e:
+                raise ValueError("priorities and modules are not consistent") from e
 
     theoretical_module_names = list(
         chain(*(mod.sub_names for mod in moduler.values() if mod.type == "theoretical"))
