@@ -1,0 +1,24 @@
+defaults:
+    seats: [1, -1]
+    periods: [0, 1]
+    n_periods: 2
+
+
+
+moduler:
+    pioner:
+        seats: [2, 4]
+        periods: [0, 1]
+        name: Pioner
+        type: practical
+        n_periods: 1
+    konfliktløsning:
+        seats: [0, 2]
+        periods: [0]
+        name: Konfliktløsning
+        type: theoretical
+    lbd:
+        name: Learning By Doing
+        type: theoretical
+        seats: [0,-1]
+        periods: [1]
